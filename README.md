@@ -73,13 +73,14 @@ classDiagram
         +List<String> redesSociais
     }
     
-    Produtores "1" *-- "many" Eventos : faz
+    /*
+Produtores "1" *-- "many" Eventos : faz
     Ong "1" *-- "many" Eventos : faz
     Usuário "1" *-- "1" Local : pertence a
     Ong "1" *-- "1" Local : pertence a
     Produtores "1" *-- "1" Local : pertence a
     Local "1" *-- "many" Evento : contém
-
+*/
 ```
 // 
 
