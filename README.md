@@ -1,3 +1,4 @@
+### Diagrama de Entidade Relacionamento [DER]
 ```mermaid
 classDiagram
     class Usuário {
@@ -15,6 +16,7 @@ classDiagram
         +String email
         +String senha
         +int cep_Local (FK)
+        +int id_DadosSistema (FK)
     }
 
     class Eventos {
@@ -27,7 +29,7 @@ classDiagram
         +String classificacaIndicativa
         +boolean estacionamento
         +int valorEstacionamento
-        +int cepLocal (FK)
+        +int cep_Local (FK)
         +int id_InformacoesDias (FK)
         +int id_condicaoCompra (FK)
     }
@@ -36,12 +38,13 @@ classDiagram
         +int cnpj (PK)
         +String nome
         +String descricao
-        +int cepLocal (FK)
+        +int cep_Local (FK)
         +int id_InformacoesDias (FK)
+        +int id_DadosSistema (FK)
     }
 
     class Local {
-        +int cep (FK)
+        +int cep (PK)
         +String tipoLogradouro
         +String logradouro
         +String bairro
@@ -67,7 +70,7 @@ classDiagram
     }
 
     class DadosSistema {
-        +int id
+        +int id (PK)
         +List<int> telefones
         +List<String> email
         +List<String> redesSociais
@@ -79,92 +82,12 @@ Produtores "1" *-- "many" Eventos : faz
     Usuário "1" *-- "1" Local : pertence a
     Ong "1" *-- "1" Local : pertence a
     Produtores "1" *-- "1" Local : pertence a
-    Local "1" *-- "many" Evento : contém
+    Local "1" *-- "many" Eventos : contém
+    Eventos "1" *-- "many" InformacoesDias : contém
+    Ong "1" *-- "many" InformacoesDias : contém
+    Eventos "1" *-- "many" CondicaoCompra : contém
 
 ```
-// 
-
-
-UserProfile "1" *-- "many" CycleLog : manages
-    EmergencyController "1" o-- "1" ChatSession : controls
-    EmergencyController "1" o-- "1" MapService : uses
-
-//
-
-
-```mermaid
-classDiagram
-    class UserProfile {
-      +String uid
-      +bool isBiometricEnabled
-      +authenticate() bool
-      +triggerCamouflageMode() void
-    }
-
-    class CycleLog {
-      +DateTime date
-      +String mood
-      +List~String~ symptoms
-      +String flowLevel
-      +saveToLocal() void
-      +syncToCloud() void
-    }
-
-    class EmergencyController {
-      +bool isHiddenModeActive
-      +Location currentLocation
-      +activateQuickEscape() void
-      +fetchSafeRoutes() List~Route~
-    }
-
-    class ChatSession {
-      +String sessionId
-      +List~Message~ messages
-      +sendMessage(String text)
-      +sendQuickReply(QuickReplyType type)
-    }
-
-    class MapService {
-      +getOSMTiles() MapData
-      +calculateRoute(GeoPoint origin, GeoPoint dest) Route
-    }
-
-    UserProfile "1" *-- "many" CycleLog : manages
-    EmergencyController "1" o-- "1" ChatSession : controls
-    EmergencyController "1" o-- "1" MapService : uses
-
-```
-
-Usuário 
-email (login) 
-nome 
-senha (login)
-endereço-> cep, logradouro, cidade… 
-preferências -> geek, musical, artesanato, cultural…
-
-Produtores
-email_empresa (login)
-nome_empresa 
-senha (login)
-local_empresa 
-CNPJ
-
-Eventos
-local -> CEP, edifício, complemento
-nome
-datas (de que dia até qual)
-informações por dia:
-id
-hora início
-hora final
-quantidade ingressos disponível por tipo de ingresso
-condições de compra (modal)
-id
-tipos de ingresso (vip, meia entrada, preferencial, etc)
-valor/requisitos por tipo de ingresso
-benefícios da cada tipo
-descrição
-temática
 classificação indicativa
 dados da empresa (comunicação, redes sociais)
 estacionamento
