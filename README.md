@@ -84,8 +84,8 @@ Produtores "1" *-- "many" Eventos : faz
     Produtores "1" *-- "1" Local : pertence a
     Local "1" *-- "many" Eventos : contém
     Eventos "1" *-- "many" InformacoesDias : contém
-    Ong "1" *-- "many" InformacoesDias : contém
     Eventos "1" *-- "many" CondicaoCompra : contém
+    Usuario "1" *-- "1" DadosSistema : detém de
 
 ```
 classificação indicativa
