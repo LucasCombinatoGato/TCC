@@ -1,7 +1,7 @@
 ### Diagrama de Entidade Relacionamento [DER]
 ```mermaid
 classDiagram
-    class Usuário {
+    class Usuario {
         +int cpf (PK)
         +String nome
         +String email
@@ -79,7 +79,7 @@ classDiagram
     
 Produtores "1" *-- "many" Eventos : faz
     Ong "1" *-- "many" Eventos : faz
-    Usuário "1" *-- "1" Local : pertence a
+    Usuario "1" *-- "1" Local : pertence a
     Ong "1" *-- "1" Local : pertence a
     Produtores "1" *-- "1" Local : pertence a
     Local "1" *-- "many" Eventos : contém
