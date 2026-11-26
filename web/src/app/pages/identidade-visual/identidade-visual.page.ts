@@ -1,6 +1,7 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { Observable } from 'rxjs';
 import { CAMORA_DEFAULT_IDENTITY, IdentidadeVisualDTO } from '../../models/camora.models';
 import { AuthService } from '../../services/auth.service';
 import { ProdutorService } from '../../services/produtor.service';
@@ -28,7 +29,7 @@ export class IdentidadeVisualPage implements OnInit {
   readonly identidade = signal<IdentidadeVisualDTO>({ ...CAMORA_DEFAULT_IDENTITY });
 
   ngOnInit(): void {
-    const req$ = this.auth.userRole() === 'ROLE_ONG'
+    const req$: Observable<any> = this.auth.userRole() === 'ROLE_ONG'
       ? this.ongService.meuPerfil()
       : this.produtorService.meuPerfil();
 
@@ -50,7 +51,7 @@ export class IdentidadeVisualPage implements OnInit {
 
   salvar(iv: IdentidadeVisualDTO): void {
     this.saving.set(true);
-    const req$ = this.auth.userRole() === 'ROLE_ONG'
+    const req$: Observable<any> = this.auth.userRole() === 'ROLE_ONG'
       ? this.ongService.atualizarIdentidadeVisual(iv)
       : this.produtorService.atualizarIdentidadeVisual(iv);
 
@@ -71,7 +72,7 @@ export class IdentidadeVisualPage implements OnInit {
 
   restaurarPadrao(): void {
     this.saving.set(true);
-    const req$ = this.auth.userRole() === 'ROLE_ONG'
+    const req$: Observable<any> = this.auth.userRole() === 'ROLE_ONG'
       ? this.ongService.restaurarIdentidadePadrao()
       : this.produtorService.restaurarIdentidadePadrao();
 
