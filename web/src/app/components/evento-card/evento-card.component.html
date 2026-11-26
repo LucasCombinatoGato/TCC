@@ -1,0 +1,63 @@
+<article class="evento-card surface-card">
+  <div class="card-cover" [style.background]="coverBackground">
+    @if (evento.imagemCapaUrl) {
+      <img [src]="evento.imagemCapaUrl" [alt]="evento.nome" class="cover-img" />
+    }
+    <div class="cover-badges">
+      @if (evento.tematica) {
+        <span class="badge" [style.background]="accentColor" style="color:#fff">
+          {{ evento.tematica.nome }}
+        </span>
+      }
+      <span class="badge ambito-badge">
+        {{ evento.tipoAmbito === 'ACAO_SOCIAL' ? 'Ação Social' : 'Evento' }}
+      </span>
+    </div>
+
+    @if (evento.priorizado) {
+      <span class="badge recommended-badge">Para você</span>
+    }
+  </div>
+
+  <div class="card-body">
+    <div class="card-meta">
+      <span class="date-pill">{{ evento.dataInicio | date: 'dd MMM yyyy • HH:mm' }}</span>
+      <span class="price-pill" [class.free]="evento.gratuito">{{ precoResumo }}</span>
+    </div>
+
+    <h3 class="card-title">
+      <a [routerLink]="['/eventos', evento.id]">{{ evento.nome }}</a>
+    </h3>
+
+    <p class="card-desc">
+      {{ (evento.descricao || 'Confira todos os detalhes, programação e informações de acesso.') | slice:0:120 }}{{ (evento.descricao?.length || 0) > 120 ? '...' : '' }}
+    </p>
+
+    <div class="card-info-row">
+      <span>
+        @if (evento.local?.cidade) {
+          {{ evento.local?.cidade }}{{ evento.local?.uf ? ' / ' + evento.local?.uf : '' }}
+        } @else {
+          Local a definir
+        }
+      </span>
+      <span class="org-chip">
+        {{ evento.organizadorTipo === 'ONG' ? 'ONG' : 'Produtor' }}: {{ evento.organizadorNome || 'Camora' }}
+      </span>
+    </div>
+
+    <div class="card-actions">
+      <a [routerLink]="['/eventos', evento.id]" class="btn btn-primary btn-sm">Ver detalhes</a>
+      @if (showSaveButton) {
+        <button
+          type="button"
+          class="btn btn-sm"
+          [class.btn-magenta]="evento.salvoPeloUsuario"
+          [class.btn-outline]="!evento.salvoPeloUsuario"
+          (click)="toggleSalvar.emit(evento)">
+          {{ evento.salvoPeloUsuario ? 'Salvo' : 'Salvar' }}
+        </button>
+      }
+    </div>
+  </div>
+</article>

@@ -1,0 +1,30 @@
+.wl-hero {
+  background: linear-gradient(135deg, var(--camora-primary), var(--camora-secondary));
+  color: #fff;
+  padding: 40px 0;
+  border-bottom: 4px solid var(--camora-accent);
+
+  h1 { font-size: 2.7rem; margin: 8px 0 6px; }
+  p { margin: 0; opacity: 0.9; }
+}
+
+.hero-tag {
+  background: var(--camora-accent);
+  color: #fff;
+}
+
+.hero-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.wl-body {
+  margin-top: 28px;
+}
+
+.wl-card {
+  padding: 28px;
+}

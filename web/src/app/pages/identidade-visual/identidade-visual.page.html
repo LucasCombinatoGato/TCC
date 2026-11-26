@@ -1,0 +1,27 @@
+<section class="wl-hero">
+  <div class="container hero-flex">
+    <div>
+      <span class="badge hero-tag">White-Label Camora</span>
+      <h1 class="font-display">Identidade Visual da Sua Marca</h1>
+      <p>Personalize logotipo e paleta de cores (Principal, Caráter e Destaque) ou utilize o padrão oficial Camora.</p>
+    </div>
+    <a routerLink="/area-criador" class="btn btn-ghost btn-sm">Voltar para Área do Criador</a>
+  </div>
+</section>
+
+<section class="container wl-body">
+  @if (loading()) {
+    <div class="loader-bar"><span class="spinner"></span> Carregando configurações visuais...</div>
+  } @else {
+    <div class="surface-card wl-card">
+      <app-seletor-identidade-visual
+        [identidade]="identidade()"
+        [organizacaoNome]="auth.currentUser()?.nome || 'Sua Organização'"
+        [saving]="saving()"
+        (identidadeChange)="aoAlterarPreview($event)"
+        (salvar)="salvar($event)"
+        (restaurarPadrao)="restaurarPadrao()"
+      ></app-seletor-identidade-visual>
+    </div>
+  }
+</section>

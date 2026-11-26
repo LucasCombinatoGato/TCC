@@ -1,0 +1,56 @@
+<section class="auth-shell container">
+  <div class="auth-card surface-card">
+    <div class="auth-brand">
+      <img src="assets/camora-chameleon.svg" alt="Mascote Camora" width="60" height="60" />
+      <div>
+        <span class="badge auth-tag">Acesso à Plataforma</span>
+        <h1 class="font-display">Entrar na Camora</h1>
+      </div>
+    </div>
+
+    <form class="auth-form" (ngSubmit)="entrar()">
+      <div class="form-group">
+        <label for="tipoPerfil">Perfil de acesso (opcional)</label>
+        <select id="tipoPerfil" [(ngModel)]="tipoPerfil" name="tipoPerfil">
+          <option value="">Detectar automaticamente pelo e-mail</option>
+          <option value="ROLE_PRODUCER">Produtor de Eventos</option>
+          <option value="ROLE_ONG">ONG / Organização Social</option>
+          <option value="ROLE_USER">Usuário Explorador</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="email">E-mail</label>
+        <input id="email" type="email" [(ngModel)]="email" name="email" required placeholder="seu@email.com" />
+      </div>
+
+      <div class="form-group">
+        <label for="senha">Senha</label>
+        <input id="senha" type="password" [(ngModel)]="senha" name="senha" required placeholder="••••••••" />
+      </div>
+
+      <button type="submit" class="btn btn-primary" [disabled]="loading()">
+        {{ loading() ? 'Autenticando...' : 'Entrar' }}
+      </button>
+    </form>
+
+    <div class="demo-box">
+      <p><strong>Contas de demonstração (perfil local dev):</strong></p>
+      <div class="demo-buttons">
+        <button type="button" class="btn btn-outline btn-sm" (click)="preencherDemo('produtor@camora.com', 'ROLE_PRODUCER')">
+          Produtor Demo
+        </button>
+        <button type="button" class="btn btn-outline btn-sm" (click)="preencherDemo('ong@camora.com', 'ROLE_ONG')">
+          ONG Demo
+        </button>
+        <button type="button" class="btn btn-outline btn-sm" (click)="preencherDemo('usuario@camora.com', 'ROLE_USER')">
+          Usuário Demo
+        </button>
+      </div>
+    </div>
+
+    <p class="auth-footer">
+      Ainda não tem conta? <a routerLink="/cadastro">Cadastre-se como Produtor, ONG ou Usuário</a>
+    </p>
+  </div>
+</section>

@@ -1,0 +1,104 @@
+<section class="hero">
+  <div class="container hero-grid">
+    <div class="hero-copy">
+      <span class="badge hero-pill">Plataforma Camora</span>
+      <h1 class="font-display">
+        DIFERENTES CORES, FORMAS E EXPERIÊNCIAS EM CONSTANTE DESCOBERTA
+      </h1>
+      <p>
+        Conecte-se a eventos culturais, shows, oficinas, feiras e ações sociais de ONGs.
+        Organize projetos com identidade visual própria (White-Label) e alcance quem realmente se interessa.
+      </p>
+
+      <form class="hero-search" (ngSubmit)="pesquisar()">
+        <input
+          type="text"
+          [(ngModel)]="buscaRapida"
+          name="buscaRapida"
+          placeholder="Buscar shows, oficinas, ações sociais ou cidades..."
+        />
+        <button type="submit" class="btn btn-accent">Explorar agora</button>
+      </form>
+
+      <div class="hero-cta">
+        <a routerLink="/eventos" class="btn btn-ghost">Ver todos os eventos</a>
+        <a routerLink="/cadastro" class="btn btn-magenta">Sou Produtor ou ONG</a>
+      </div>
+    </div>
+
+    <div class="hero-mascot">
+      <div class="mascot-orb">
+        <img src="assets/camora-chameleon.svg" alt="Mascote Camaleão da Camora" />
+      </div>
+      <div class="floating-chip chip-1">70% Roxo Profundo</div>
+      <div class="floating-chip chip-2">White-Label Dinâmico</div>
+      <div class="floating-chip chip-3">ONGs & Ações Sociais</div>
+    </div>
+  </div>
+</section>
+
+<section class="container section-block">
+  <div class="section-head">
+    <div>
+      <span class="eyebrow">Explore por afinidade</span>
+      <h2 class="font-display">Temáticas em Destaque</h2>
+    </div>
+    <a routerLink="/eventos" class="btn btn-outline btn-sm">Ver vitrine completa</a>
+  </div>
+
+  <div class="tematicas-grid">
+    @for (t of tematicas(); track t.id) {
+      <button type="button" class="tematica-pill surface-card" (click)="irParaTematica(t.id)">
+        <span class="tematica-color" [style.background]="t.corHex || '#8338EC'"></span>
+        <div class="tematica-text">
+          <strong>{{ t.nome }}</strong>
+          <span>{{ t.descricao }}</span>
+        </div>
+      </button>
+    }
+  </div>
+</section>
+
+<section class="container section-block">
+  <div class="section-head">
+    <div>
+      <span class="eyebrow">Programação ativa</span>
+      <h2 class="font-display">Eventos e Ações em Alta</h2>
+    </div>
+    <a routerLink="/eventos" class="btn btn-outline btn-sm">Filtrar eventos</a>
+  </div>
+
+  @if (loading()) {
+    <div class="loader-bar"><span class="spinner"></span> Carregando descobertas...</div>
+  } @else if (eventosDestaque().length === 0) {
+    <div class="empty-state">
+      <h3>Nenhum evento publicado ainda</h3>
+      <p>Seja o primeiro produtor ou ONG a publicar um projeto na plataforma.</p>
+      <a routerLink="/cadastro" class="btn btn-primary">Cadastrar organização</a>
+    </div>
+  } @else {
+    <div class="cards-grid">
+      @for (evento of eventosDestaque(); track evento.id) {
+        <app-evento-card [evento]="evento"></app-evento-card>
+      }
+    </div>
+  }
+</section>
+
+@if (ongsDestaque().length > 0) {
+  <section class="container section-block">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">Impacto positivo</span>
+        <h2 class="font-display">ONGs & Causas Parceiras</h2>
+      </div>
+      <a routerLink="/ongs" class="btn btn-outline btn-sm">Conhecer todas as ONGs</a>
+    </div>
+
+    <div class="cards-grid">
+      @for (ong of ongsDestaque(); track ong.id) {
+        <app-ong-card [ong]="ong" (selecionar)="irParaOng($event)"></app-ong-card>
+      }
+    </div>
+  </section>
+}

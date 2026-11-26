@@ -1,0 +1,142 @@
+<section class="cadastro-shell container">
+  <div class="cadastro-card surface-card">
+    <div class="cadastro-head">
+      <span class="badge tag">Novo Cadastro</span>
+      <h1 class="font-display">Crie sua conta na Camora</h1>
+      <p>Escolha o perfil ideal para divulgar eventos, organizar ações sociais ou descobrir experiências.</p>
+    </div>
+
+    <div class="profile-tabs">
+      <button type="button" [class.active]="tipo() === 'PRODUTOR'" (click)="tipo.set('PRODUTOR')">
+        Produtor de Eventos
+      </button>
+      <button type="button" [class.active]="tipo() === 'ONG'" (click)="tipo.set('ONG')">
+        ONG / Ação Social
+      </button>
+      <button type="button" [class.active]="tipo() === 'USUARIO'" (click)="tipo.set('USUARIO')">
+        Usuário Explorador
+      </button>
+    </div>
+
+    <form class="cadastro-form" (ngSubmit)="cadastrar()">
+      <div class="form-grid-2">
+        <div class="form-group">
+          <label>{{ tipo() === 'PRODUTOR' ? 'Nome da Empresa *' : (tipo() === 'ONG' ? 'Nome da ONG *' : 'Nome Completo *') }}</label>
+          <input type="text" [(ngModel)]="nome" name="nome" required placeholder="Nome oficial" />
+        </div>
+
+        <div class="form-group">
+          <label>{{ tipo() === 'USUARIO' ? 'CPF *' : 'CNPJ *' }}</label>
+          <input
+            type="text"
+            [(ngModel)]="documento"
+            name="documento"
+            required
+            [placeholder]="tipo() === 'USUARIO' ? '000.000.000-00' : '00.000.000/0001-00'"
+          />
+        </div>
+      </div>
+
+      <div class="form-grid-2">
+        <div class="form-group">
+          <label>E-mail *</label>
+          <input type="email" [(ngModel)]="email" name="email" required placeholder="contato@organizacao.com" />
+        </div>
+        <div class="form-group">
+          <label>Senha *</label>
+          <input type="password" [(ngModel)]="senha" name="senha" required minlength="6" placeholder="Mínimo 6 caracteres" />
+        </div>
+      </div>
+
+      @if (tipo() === 'ONG') {
+        <div class="form-group">
+          <label>Descrição da Causa e Atuação</label>
+          <textarea [(ngModel)]="descricaoOng" name="descricaoOng" rows="3" placeholder="Descreva os projetos e objetivos da ONG..."></textarea>
+        </div>
+      }
+
+      @if (tipo() !== 'USUARIO') {
+        <div class="form-grid-3">
+          <div class="form-group">
+            <label>Telefone / WhatsApp</label>
+            <input type="text" [(ngModel)]="telefone" name="telefone" placeholder="(11) 99999-0000" />
+          </div>
+          <div class="form-group">
+            <label>Redes Sociais</label>
+            <input type="text" [(ngModel)]="redesSociais" name="redesSociais" placeholder="@camora.oficial" />
+          </div>
+          <div class="form-group">
+            <label>Site Oficial</label>
+            <input type="url" [(ngModel)]="site" name="site" placeholder="https://..." />
+          </div>
+        </div>
+      }
+
+      <div class="form-grid-3">
+        <div class="form-group">
+          <label>CEP</label>
+          <input type="text" [(ngModel)]="cep" name="cep" placeholder="01310-100" />
+        </div>
+        <div class="form-group">
+          <label>Cidade</label>
+          <input type="text" [(ngModel)]="cidade" name="cidade" placeholder="São Paulo" />
+        </div>
+        <div class="form-group">
+          <label>UF</label>
+          <input type="text" maxlength="2" [(ngModel)]="uf" name="uf" placeholder="SP" />
+        </div>
+      </div>
+
+      @if (tipo() === 'USUARIO' && tematicas().length > 0) {
+        <div class="prefs-box">
+          <label>Selecione suas temáticas de interesse (personaliza a ordem dos eventos):</label>
+          <div class="prefs-chips">
+            @for (t of tematicas(); track t.id) {
+              <button
+                type="button"
+                class="pref-chip"
+                [class.selected]="tematicasSelecionadas().includes(t.id)"
+                (click)="toggleTematica(t.id)">
+                <i [style.background]="t.corHex || '#8338EC'"></i>
+                {{ t.nome }}
+              </button>
+            }
+          </div>
+        </div>
+      }
+
+      @if (tipo() !== 'USUARIO') {
+        <div class="wl-quick-box">
+          <label class="checkbox-row">
+            <input type="checkbox" [checked]="!identidade.usarIdentidadePadrao" (change)="identidade.usarIdentidadePadrao = !$any($event.target).checked" />
+            Personalizar identidade visual agora (White-Label — também pode ser configurada depois)
+          </label>
+          @if (!identidade.usarIdentidadePadrao) {
+            <div class="form-grid-3">
+              <div class="form-group">
+                <label>Cor Principal</label>
+                <input type="color" [(ngModel)]="identidade.corPrincipal" name="corP" />
+              </div>
+              <div class="form-group">
+                <label>Cor Secundária</label>
+                <input type="color" [(ngModel)]="identidade.corSecundaria" name="corS" />
+              </div>
+              <div class="form-group">
+                <label>Cor Destaque</label>
+                <input type="color" [(ngModel)]="identidade.corDestaque" name="corD" />
+              </div>
+            </div>
+          }
+        </div>
+      }
+
+      <button type="submit" class="btn btn-primary" [disabled]="loading()">
+        {{ loading() ? 'Criando conta...' : 'Concluir Cadastro' }}
+      </button>
+    </form>
+
+    <p class="auth-footer">
+      Já possui cadastro? <a routerLink="/login">Entrar na minha conta</a>
+    </p>
+  </div>
+</section>

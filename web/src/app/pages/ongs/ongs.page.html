@@ -1,0 +1,87 @@
+@if (!ongSelecionada()) {
+  <section class="page-banner">
+    <div class="container">
+      <span class="badge banner-tag">Impacto Social</span>
+      <h1 class="font-display">ONGs & Organizações Parceiras</h1>
+      <p>Conheça instituições que transformam comunidades por meio de ações sociais, voluntariado e campanhas.</p>
+    </div>
+  </section>
+
+  <section class="container ongs-shell">
+    <div class="search-bar surface-card">
+      <input
+        type="text"
+        [(ngModel)]="termoBusca"
+        placeholder="Filtrar ONGs por nome, causa ou cidade..."
+      />
+    </div>
+
+    @if (loading()) {
+      <div class="loader-bar"><span class="spinner"></span> Carregando ONGs...</div>
+    } @else if (ongsFiltradas().length === 0) {
+      <div class="empty-state">
+        <h3>Nenhuma ONG encontrada</h3>
+        <p>Cadastre uma organização social ou ajuste os termos de busca.</p>
+      </div>
+    } @else {
+      <div class="cards-grid">
+        @for (ong of ongsFiltradas(); track ong.id) {
+          <app-ong-card [ong]="ong" (selecionar)="selecionarOng($event)"></app-ong-card>
+        }
+      </div>
+    }
+  </section>
+} @else {
+  @let ong = ongSelecionada()!;
+  <section class="page-banner">
+    <div class="container ong-hero-inner">
+      <div class="ong-identity-row">
+        <img [src]="ong.identidadeVisual?.logo || 'assets/camora-chameleon.svg'" [alt]="ong.nome" class="ong-hero-logo" />
+        <div>
+          <span class="badge banner-tag">Página Institucional ONG</span>
+          <h1 class="font-display">{{ ong.nome }}</h1>
+          <p>{{ ong.descricao || 'Organização parceira da plataforma Camora.' }}</p>
+        </div>
+      </div>
+      <button type="button" class="btn btn-ghost btn-sm" (click)="voltarLista()">Voltar para todas as ONGs</button>
+    </div>
+  </section>
+
+  <section class="container ong-details">
+    <div class="info-strip surface-card">
+      <div>
+        <strong>CNPJ</strong>
+        <span>{{ ong.cnpj }}</span>
+      </div>
+      <div>
+        <strong>Localização</strong>
+        <span>{{ ong.local?.cidade || 'Não informada' }}{{ ong.local?.uf ? ' / ' + ong.local?.uf : '' }}</span>
+      </div>
+      <div>
+        <strong>Contato</strong>
+        <span>{{ ong.dadosContato?.email || ong.email }} {{ ong.dadosContato?.telefone ? '• ' + ong.dadosContato?.telefone : '' }}</span>
+      </div>
+      <div>
+        <strong>Redes / Site</strong>
+        <span>{{ ong.dadosContato?.redesSociais || ong.dadosContato?.site || 'Não informado' }}</span>
+      </div>
+    </div>
+
+    <h2 class="font-display section-title">Ações Sociais e Eventos de {{ ong.nome }}</h2>
+
+    @if (loadingAcoes()) {
+      <div class="loader-bar"><span class="spinner"></span> Carregando ações sociais...</div>
+    } @else if (acoesOng().length === 0) {
+      <div class="empty-state">
+        <h3>Nenhuma ação publicada no momento</h3>
+        <p>Esta organização ainda não publicou campanhas ou eventos ativos.</p>
+      </div>
+    } @else {
+      <div class="cards-grid">
+        @for (acao of acoesOng(); track acao.id) {
+          <app-evento-card [evento]="acao"></app-evento-card>
+        }
+      </div>
+    }
+  </section>
+}

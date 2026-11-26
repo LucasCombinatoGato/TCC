@@ -7,4 +7,5 @@ import java.util.List;
 public interface NotificacaoRepository extends JpaRepository<Notificacao, Long> {
     List<Notificacao> findByUsuarioIdOrderByDataCriacaoDesc(Long usuarioId);
     long countByUsuarioIdAndLidaFalse(Long usuarioId);
+    void deleteByEventoId(Long eventoId);
 }

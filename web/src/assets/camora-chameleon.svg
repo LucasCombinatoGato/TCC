@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <defs>
+    <linearGradient id="camoraGrad" x1="10" y1="10" x2="110" y2="110" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#471CA8"/>
+      <stop offset="55%" stop-color="#884AB2"/>
+      <stop offset="100%" stop-color="#FF930A"/>
+    </linearGradient>
+    <linearGradient id="crestGrad" x1="25" y1="20" x2="95" y2="65" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FF930A"/>
+      <stop offset="50%" stop-color="#F24B04"/>
+      <stop offset="100%" stop-color="#D1105A"/>
+    </linearGradient>
+  </defs>
+  <circle cx="60" cy="60" r="56" fill="url(#camoraGrad)"/>
+  <!-- Tail spiral -->
+  <path d="M32 76 C18 76, 16 58, 28 54 C36 52, 41 60, 35 66 C31 70, 26 67, 28 62" stroke="#FFBE0B" stroke-width="5.5" stroke-linecap="round" fill="none"/>
+  <!-- Chameleon body -->
+  <path d="M31 74 C31 50, 52 38, 72 42 C86 45, 96 54, 96 64 C96 72, 85 76, 70 76 L38 76 Z" fill="#FFFFFF"/>
+  <!-- Dorsal color crests -->
+  <path d="M40 48 C48 36, 62 34, 72 39 C78 42, 83 45, 86 49" stroke="url(#crestGrad)" stroke-width="6" stroke-linecap="round" fill="none"/>
+  <!-- Thematic spots -->
+  <circle cx="51" cy="59" r="4.5" fill="#FF006E"/>
+  <circle cx="62" cy="56" r="3.8" fill="#3A86FF"/>
+  <circle cx="43" cy="64" r="3.2" fill="#FFBE0B"/>
+  <!-- Eye -->
+  <circle cx="80" cy="55" r="8" fill="#471CA8"/>
+  <circle cx="80" cy="55" r="4.5" fill="#FFFFFF"/>
+  <circle cx="81.5" cy="54.5" r="2.2" fill="#1E0B4B"/>
+  <!-- Smile & tongue hint -->
+  <path d="M84 68 Q91 69 94 65" stroke="#471CA8" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Legs -->
+  <path d="M47 76 L44 88 M44 88 L49 89 M69 76 L72 88 M72 88 L77 88" stroke="#FF930A" stroke-width="4" stroke-linecap="round"/>
+</svg>
