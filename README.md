@@ -340,42 +340,29 @@ A estrutura será organizada de forma relacional, permitindo a integração entr
 | Tematica | Representa as categorias e temáticas utilizadas na organização dos eventos.
 | PreferenciaUsuario | Relaciona usuários às temáticas e preferências selecionadas.
 
-**Atributos preliminares**
-Usuario
-Atributo
-Descrição
-id
-Identificador único do usuário.
-cpf
-Documento de identificação, caso exigido.
-nome
-Nome completo do usuário.
-email
-Email utilizado para identificação e login.
-senha
-Credencial armazenada de forma segura.
-local_id
-Referência ao endereço, caso necessário.
+**Atributos preliminares**  
+**Usuario**
 
-Produtor
-Atributo
-Descrição
-id
-Identificador único do produtor.
-cnpj
-Identificação da empresa, quando aplicável.
-nomeEmpresa
-Nome da empresa ou organização.
-email
-Email de contato e login.
-senha
-Credencial armazenada de forma segura.
-local_id
-Referência ao endereço.
-dadosContato_id
-Referência às informações de contato.
-identidadeVisual_id
-Referência às configurações visuais.
+| Atributo | Descrição
+| --- | --- 
+| id | Identificador único do usuário.
+| cpf | Documento de identificação, caso exigido.
+| nome | Nome completo do usuário.
+| email | Email utilizado para identificação e login.
+| senha | Credencial armazenada de forma segura.
+| local_id | Referência ao endereço, caso necessário.
+
+**Produtor**
+| Atributo | Descrição
+| --- | --- 
+| id | Identificador único do produtor.
+| cnpj | Identificação da empresa, quando aplicável.
+| nomeEmpresa | Nome da empresa ou organização.
+| email | Email de contato e login.
+| senha | Credencial armazenada de forma segura.
+| local_id | Referência ao endereço.
+| dadosContato_id | Referência às informações de contato.
+| identidadeVisual_id | Referência às configurações visuais.
 
 #### **ONG**
 | **Atributo** | **Descrição** |
@@ -426,12 +413,13 @@ Referência às configurações visuais.
 | horaInicio | Horário de início. |  
 | horaFinal | Horário de encerramento. |  
 
-### **TipoIngresso**
-| **Atributo** | **Descrição** |
-| id | Identificador do tipo de ingresso.|
-| evento_id | Referência ao evento. | 
-| nome | Nome ou categoria do ingresso. |
-| descricao | Descrição e requisitos. | 
+#### **TipoIngresso**
+| **Atributo** | **Descrição** |  
+| --- | --- 
+| id | Identificador do tipo de ingresso.|  
+| evento_id | Referência ao evento. |   
+| nome | Nome ou categoria do ingresso. |  
+| descricao | Descrição e requisitos. |   
 | valor | Valor do ingresso, quando aplicável. | 
 | quantidadeDisponivel |Quantidade informada pelo produtor, quando aplicável. | 
 | beneficios | Benefícios associados ao ingresso. | 
@@ -446,202 +434,93 @@ Referência às configurações visuais.
 | redesSociais | Informações sobre redes sociais.
 | site | Site oficial, quando aplicável.
 
-IdentidadeVisual
-Atributo
-Descrição
-id
-Identificador da identidade visual.
-logo
-Referência ao logotipo ou arquivo da imagem.
-corPrincipal
-Cor principal.
-corSecundaria
-Cor secundária.
-corDestaque
-Cor de destaque.
-usarIdentidadePadrao
-Indica a utilização da identidade visual padrão da plataforma.
+**IdentidadeVisual**
+| Atributo | Descrição
+| --- | --- 
+| id | Identificador da identidade visual.
+| logo | Referência ao logotipo ou arquivo da imagem.
+| corPrincipal | Cor principal.
+| corSecundaria | Cor secundária.
+| corDestaque | Cor de destaque.
+| usarIdentidadePadrao | Indica a utilização da identidade visual padrão da plataforma.
 
-EventoSalvo
-Atributo
-Descrição
-id
-Identificador do registro.
-usuario_id
-Referência ao usuário.
-evento_id
-Referência ao evento.
-dataSalvamento
-Data em que o evento foi salvo.
+**EventoSalvo**
+|Atributo | Descrição
+| --- | --- 
+| id | Identificador do registro.
+| usuario_id | Referência ao usuário.
+| evento_id | Referência ao evento.
+| dataSalvamento | Data em que o evento foi salvo.
 
-Notificacao
-Atributo
-Descrição
-id
-Identificador da notificação.
-usuario_id
-Referência ao usuário destinatário.
-evento_id
-Referência ao evento relacionado.
-mensagem
-Conteúdo da notificação.
-dataCriacao
-Data e hora da criação.
-lida
-Indica se a notificação foi lida.
+**Notificacao**
+| Atributo | Descrição
+| id | Identificador da notificação.
+| usuario_id | Referência ao usuário destinatário.
+| evento_id | Referência ao evento relacionado.
+| mensagem | Conteúdo da notificação.
+| dataCriacao | Data e hora da criação.
+| lida | Indica se a notificação foi lida.
 
-Tematica
-Atributo
-Descrição
-id
-Identificador da temática.
-nome
-Nome da categoria.
-descricao
-Descrição da temática.
+**Tematica**
+| Atributo | Descrição
+| --- | --- 
+| id | Identificador da temática.
+| nome | Nome da categoria.
+| descricao | Descrição da temática.
 
-PreferenciaUsuario
-Atributo
-Descrição
-id
-Identificador da preferência.
-usuario_id
-Referência ao usuário.
-tematica_id
-Referência à temática selecionada.
+**PreferenciaUsuario**
+| Atributo | Descrição
+| --- | --- 
+| id | Identificador da preferência.
+| usuario_id | Referência ao usuário.
+| tematica_id | Referência à temática selecionada.
 
 Os atributos apresentados representam uma proposta inicial de estrutura. Os tipos de dados, chaves, relacionamentos, restrições e possíveis ajustes deverão ser definidos durante a modelagem definitiva do banco de dados.
 
 ## 4. Requisitos do Sistema
 ### 4.1 Requisitos Funcionais (RF)
 Os requisitos funcionais descrevem as funcionalidades que o sistema deverá oferecer aos usuários e produtores.
-ID
-Requisito
-Descrição
-Critérios de Aceitação
-RF-01
-Cadastro de Usuários
-Permitir que usuários comuns criem contas informando seus dados pessoais, email, senha e preferências.
-O usuário deverá conseguir preencher e enviar o formulário. O sistema deverá validar os dados e registrar a conta.
-RF-02
-Cadastro de Produtores
-Permitir o cadastro de empresas e organizações responsáveis pela divulgação de eventos.
-O produtor deverá informar os dados exigidos pelo cadastro e conseguir criar uma conta.
-RF-03
-Login
-Permitir que usuários e produtores acessem suas contas utilizando email e senha.
-O sistema deverá validar as credenciais e permitir o acesso correspondente ao perfil. Credenciais inválidas deverão gerar uma mensagem de erro.
-RF-04
-Gerenciamento de Perfil
-Permitir a visualização e atualização dos dados pessoais ou empresariais.
-O usuário ou produtor deverá conseguir visualizar e alterar os dados permitidos.
-RF-05
-Preferências de Eventos
-Permitir que usuários selecionem categorias e interesses para personalizar a descoberta de eventos.
-As preferências deverão ser armazenadas e utilizadas para organizar ou filtrar os eventos apresentados.
-RF-06
-Pesquisa de Eventos
-Permitir que usuários pesquisem eventos disponíveis na plataforma.
-O sistema deverá apresentar eventos correspondentes à pesquisa realizada.
-RF-07
-Filtragem de Eventos
-Permitir a filtragem de eventos por características como preço, temática, data e modalidade.
-O sistema deverá apresentar resultados compatíveis com os filtros selecionados.
-RF-08
-Visualização de Eventos
-Permitir que usuários consultem as informações detalhadas de eventos publicados.
-A página deverá apresentar as informações disponíveis do evento, incluindo data, horário, localização, descrição e ingressos.
-RF-09
-Organização Temática
-Permitir a organização e visualização de eventos por categorias e temáticas.
-O usuário deverá conseguir acessar categorias e visualizar os eventos relacionados.
-RF-10
-Cadastro de Eventos
-Permitir que produtores criem eventos preenchendo as informações necessárias.
-O produtor deverá conseguir cadastrar um evento com os dados obrigatórios.
-RF-11
-Publicação de Eventos
-Permitir que produtores publiquem eventos cadastrados.
-Eventos publicados deverão ficar disponíveis para visualização pelos usuários.
-RF-12
-Edição de Eventos
-Permitir que produtores alterem informações de eventos previamente cadastrados.
-O produtor deverá conseguir atualizar os dados de um evento de sua responsabilidade.
-RF-13
-Exclusão ou Despublicação
-Permitir que produtores removam ou despubliquem eventos próprios.
-O sistema deverá permitir a operação somente sobre eventos de responsabilidade do produtor e atualizar sua disponibilidade.
-RF-14
-Eventos Salvos
-Permitir que usuários salvem eventos para acompanhar posteriormente.
-O usuário deverá conseguir salvar, visualizar e remover eventos de sua lista.
-RF-15
-Notificações
-Informar aos usuários sobre alterações relevantes em eventos salvos.
-Alterações relevantes deverão gerar notificações para usuários que acompanham o evento.
-RF-16
-Localização de Eventos
-Permitir a visualização de informações de localização dos eventos.
-O sistema deverá apresentar os dados de localização cadastrados.
-RF-17
-Informações de Ingressos
-Permitir a apresentação de tipos de ingresso, valores, requisitos, benefícios e links externos.
-Os usuários deverão conseguir visualizar as informações cadastradas pelo produtor.
-RF-18
-Redirecionamento de Compra ou Inscrição
-Permitir o redirecionamento para links externos de compra ou inscrição.
-Ao selecionar o link disponibilizado, o usuário deverá ser direcionado ao endereço externo informado.
-RF-19
-Cadastro de ONGs
-Permitir que ONGs disponibilizem suas informações e divulguem ações e eventos.
-A organização deverá conseguir cadastrar e disponibilizar suas informações e eventos conforme as funcionalidades implementadas.
-RF-20
-Identidade Visual
-Permitir que produtores utilizem a identidade visual padrão ou personalizem sua apresentação.
-O produtor deverá conseguir selecionar a identidade padrão ou cadastrar elementos de personalização permitidos.
-RF-21
-Gerenciamento de Notificações
-Permitir que usuários visualizem e marquem notificações como lidas.
-O usuário deverá conseguir acessar as notificações e identificar as que foram lidas ou não.
 
-4.2 Requisitos Não Funcionais (RNF)
+| ID | Requisito | Descrição |Critérios de Aceitação
+| --- | --- | --- | --- 
+| RF-01 | Cadastro de Usuários | Permitir que usuários comuns criem contas informando seus dados pessoais, email, senha e preferências. | O usuário deverá conseguir preencher e enviar o formulário. O sistema deverá validar os dados e registrar a conta.
+|RF-02 | Cadastro de Produtores | Permitir o cadastro de empresas e organizações responsáveis pela divulgação de eventos. | O produtor deverá informar os dados exigidos pelo cadastro e conseguir criar uma conta.
+| RF-03 | Login | Permitir que usuários e produtores acessem suas contas utilizando email e senha. | O sistema deverá validar as credenciais e permitir o acesso correspondente ao perfil. Credenciais inválidas deverão gerar uma mensagem de erro.
+| RF-04 | Gerenciamento de Perfil | Permitir a visualização e atualização dos dados pessoais ou empresariais. | O usuário ou produtor deverá conseguir visualizar e alterar os dados permitidos.
+| RF-05 | Preferências de Eventos | Permitir que usuários selecionem categorias e interesses para personalizar a descoberta de eventos. | As preferências deverão ser armazenadas e utilizadas para organizar ou filtrar os eventos apresentados.
+| RF-06 | Pesquisa de Eventos | Permitir que usuários pesquisem eventos disponíveis na plataforma. | O sistema deverá apresentar eventos correspondentes à pesquisa realizada.
+| RF-07 | Filtragem de Eventos | Permitir a filtragem de eventos por características como preço, temática, data e modalidade. | O sistema deverá apresentar resultados compatíveis com os filtros selecionados.
+| RF-08 | Visualização de Eventos | Permitir que usuários consultem as informações detalhadas de eventos publicados. | A página deverá apresentar as informações disponíveis do evento, incluindo data, horário, localização, descrição e ingressos.
+| RF-09 | Organização Temática | Permitir a organização e visualização de eventos por categorias e temáticas. | O usuário deverá conseguir acessar categorias e visualizar os eventos relacionados.
+| RF-10 | Cadastro de Eventos | Permitir que produtores criem eventos preenchendo as informações necessárias. |O produtor deverá conseguir cadastrar um evento com os dados obrigatórios.
+| RF-11 | Publicação de Eventos | Permitir que produtores publiquem eventos cadastrados. | Eventos publicados deverão ficar disponíveis para visualização pelos usuários.
+| RF-12 | Edição de Eventos | Permitir que produtores alterem informações de eventos previamente cadastrados. | O produtor deverá conseguir atualizar os dados de um evento de sua responsabilidade.
+| RF-13 | Exclusão ou Despublicação | Permitir que produtores removam ou despubliquem eventos próprios.| O sistema deverá permitir a operação somente sobre eventos de responsabilidade do produtor e atualizar sua disponibilidade.
+| RF-14 | Eventos Salvos |Permitir que usuários salvem eventos para acompanhar posteriormente. | O usuário deverá conseguir salvar, visualizar e remover eventos de sua lista.
+| RF-15 | Notificações | Informar aos usuários sobre alterações relevantes em eventos salvos. | Alterações relevantes deverão gerar notificações para usuários que acompanham o evento.
+| RF-16 | Localização de Eventos | Permitir a visualização de informações de localização dos eventos. | O sistema deverá apresentar os dados de localização cadastrados.
+| RF-17 | Informações de Ingressos | Permitir a apresentação de tipos de ingresso, valores, requisitos, benefícios e links externos. | Os usuários deverão conseguir visualizar as informações cadastradas pelo produtor.
+| RF-18 | Redirecionamento de Compra ou Inscrição | Permitir o redirecionamento para links externos de compra ou inscrição. | Ao selecionar o link disponibilizado, o usuário deverá ser direcionado ao endereço externo informado.
+| RF-19 | Cadastro de ONGs | Permitir que ONGs disponibilizem suas informações e divulguem ações e eventos. | A organização deverá conseguir cadastrar e disponibilizar suas informações e eventos conforme as funcionalidades implementadas.
+| RF-20 | Identidade Visual | Permitir que produtores utilizem a identidade visual padrão ou personalizem sua apresentação. | O produtor deverá conseguir selecionar a identidade padrão ou cadastrar elementos de personalização permitidos.
+| RF-21 | Gerenciamento de Notificações | Permitir que usuários visualizem e marquem notificações como lidas. | O usuário deverá conseguir acessar as notificações e identificar as que foram lidas ou não.
+
+### 4.2 Requisitos Não Funcionais (RNF)
 Os requisitos não funcionais descrevem características de qualidade, desempenho, organização e funcionamento do sistema.
-ID
-Requisito
-Descrição
-RNF-01
-Desempenho
-O sistema deverá buscar proporcionar um tempo de resposta de até 3 segundos entre páginas, considerando condições adequadas de conexão e operação.
-RNF-02
-Disponibilidade
-O sistema deverá estar disponível durante os períodos de apresentação, execução demonstrativa e verificações previstas para o projeto.
-RNF-03
-Compatibilidade
-A aplicação deverá funcionar em dispositivos móveis compatíveis com Flutter e navegadores modernos compatíveis com Angular.
-RNF-04
-Organização de Código
-O sistema deverá possuir código organizado e separado por responsabilidades, seguindo a arquitetura MVC no backend.
-RNF-05
-Manutenção
-A estrutura deverá permitir a manutenção, atualização e expansão das funcionalidades.
-RNF-06
-Segurança
-O sistema deverá proteger o acesso às funcionalidades e informações de acordo com o perfil de usuário. Senhas deverão ser armazenadas de forma segura.
-RNF-07
-Integridade dos Dados
-O sistema deverá manter a consistência dos registros e relacionamentos no banco de dados.
-RNF-08
-Usabilidade
-As interfaces deverão apresentar informações de maneira organizada, legível e intuitiva.
-RNF-09
-Privacidade
-Os dados pessoais deverão ser utilizados e armazenados de forma adequada, considerando os princípios de proteção e privacidade de dados.
-RNF-10
-Comunicação
-As aplicações Mobile e Web deverão se comunicar com o backend por meio de interfaces de comunicação definidas.
-RNF-11
-Persistência
-Os dados cadastrados deverão ser armazenados no PostgreSQL, permitindo sua recuperação e atualização.
+
+| ID | Requisito | Descrição
+| --- | --- | --- 
+| RNF-01 | Desempenho | O sistema deverá buscar proporcionar um tempo de resposta de até 3 segundos entre páginas, considerando condições adequadas de conexão e operação.
+| RNF-02 | Disponibilidade | O sistema deverá estar disponível durante os períodos de apresentação, execução demonstrativa e verificações previstas para o projeto.
+| RNF-03 | Compatibilidade | A aplicação deverá funcionar em dispositivos móveis compatíveis com Flutter e navegadores modernos compatíveis com Angular.
+| RNF-04 | Organização de Código | O sistema deverá possuir código organizado e separado por responsabilidades, seguindo a arquitetura MVC no backend.
+| RNF-05 | Manutenção | A estrutura deverá permitir a manutenção, atualização e expansão das funcionalidades.
+| RNF-06 | Segurança | O sistema deverá proteger o acesso às funcionalidades e informações de acordo com o perfil de usuário. Senhas deverão ser armazenadas de forma segura.
+| RNF-07 | Integridade dos Dados | O sistema deverá manter a consistência dos registros e relacionamentos no banco de dados.
+| RNF-08 | Usabilidade | As interfaces deverão apresentar informações de maneira organizada, legível e intuitiva.
+| RNF-09 | Privacidade | Os dados pessoais deverão ser utilizados e armazenados de forma adequada, considerando os princípios de proteção e privacidade de dados.
+| RNF-10 | Comunicação | As aplicações Mobile e Web deverão se comunicar com o backend por meio de interfaces de comunicação definidas.
+| RNF-11 | Persistência | Os dados cadastrados deverão ser armazenados no PostgreSQL, permitindo sua recuperação e atualização.
 
 
 ## 5. Regras de Negócio (RN)
