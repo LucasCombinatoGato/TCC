@@ -1,0 +1,64 @@
+.page-banner {
+  background: linear-gradient(135deg, var(--camora-primary), var(--camora-secondary));
+  color: #fff;
+  padding: 42px 0;
+  border-bottom: 4px solid var(--camora-accent);
+
+  h1 {
+    font-size: 2.8rem;
+    margin: 8px 0 6px;
+  }
+  p {
+    margin: 0;
+    opacity: 0.88;
+  }
+}
+
+.banner-tag {
+  background: var(--camora-accent);
+  color: #fff;
+}
+
+.filters-wrapper {
+  margin-top: -24px;
+}
+
+.filters-card {
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.filters-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.dates-inline {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.filter-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.result-count {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--camora-primary);
+  margin-bottom: 14px;
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+  gap: 22px;
+}

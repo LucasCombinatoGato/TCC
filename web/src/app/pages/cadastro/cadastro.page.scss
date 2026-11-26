@@ -1,0 +1,133 @@
+.cadastro-shell {
+  padding: 40px 0;
+  display: flex;
+  justify-content: center;
+}
+
+.cadastro-card {
+  width: min(820px, 100%);
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.cadastro-head {
+  h1 {
+    font-size: 2.4rem;
+    color: var(--camora-primary);
+    margin: 8px 0 6px;
+  }
+  p {
+    margin: 0;
+    color: var(--text-muted);
+  }
+}
+
+.tag {
+  background: var(--bg-subtle);
+  color: var(--camora-primary);
+}
+
+.profile-tabs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+
+  @media (max-width: 640px) {
+    grid-template-columns: 1fr;
+  }
+
+  button {
+    padding: 12px;
+    border-radius: var(--radius-sm);
+    border: 2px solid var(--border-color);
+    background: #fff;
+    font-weight: 700;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.16s ease;
+
+    &.active {
+      border-color: var(--camora-primary);
+      background: var(--camora-primary);
+      color: #fff;
+    }
+  }
+}
+
+.cadastro-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.prefs-box, .wl-quick-box {
+  background: #FAF8FE;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  label {
+    font-weight: 600;
+    font-size: 0.88rem;
+  }
+}
+
+.prefs-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.pref-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 14px;
+  border-radius: 999px;
+  border: 1.5px solid var(--border-color);
+  background: #fff;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.84rem;
+
+  i {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+  }
+
+  &.selected {
+    border-color: var(--camora-primary);
+    background: var(--camora-primary);
+    color: #fff;
+  }
+}
+
+.checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+
+  input {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+.auth-footer {
+  text-align: center;
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+
+  a {
+    color: var(--camora-primary);
+    font-weight: 700;
+  }
+}

@@ -1,0 +1,78 @@
+<header class="camora-navbar">
+  <div class="container nav-inner">
+    <a routerLink="/" class="brand" (click)="menuOpen.set(false)">
+      <img
+        [src]="theme.activeIdentity().logo || 'assets/camora-chameleon.svg'"
+        alt="Camora Camaleão"
+        class="brand-logo"
+      />
+      <div class="brand-text">
+        <span class="font-display brand-title">CAMORA</span>
+        <span class="brand-sub">Eventos & Ações Sociais</span>
+      </div>
+    </a>
+
+    <button class="hamburger" type="button" (click)="menuOpen.set(!menuOpen())" aria-label="Alternar menu">
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav class="nav-links" [class.open]="menuOpen()">
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="menuOpen.set(false)">Início</a>
+      <a routerLink="/eventos" routerLinkActive="active" (click)="menuOpen.set(false)">Eventos</a>
+      <a routerLink="/ongs" routerLinkActive="active" (click)="menuOpen.set(false)">ONGs</a>
+
+      @if (auth.isCreator()) {
+        <a routerLink="/area-criador" routerLinkActive="active" (click)="menuOpen.set(false)">Área do Criador</a>
+        <a routerLink="/identidade-visual" routerLinkActive="active" (click)="menuOpen.set(false)">White-Label</a>
+        <a routerLink="/perfil-produtor" routerLinkActive="active" (click)="menuOpen.set(false)">Meu Perfil</a>
+      }
+
+      @if (auth.userRole() === 'ROLE_USER') {
+        <div class="notif-wrapper">
+          <button type="button" class="notif-btn" (click)="toggleNotif()">
+            Avisos
+            @if (naoLidas() > 0) {
+              <span class="notif-count">{{ naoLidas() }}</span>
+            }
+          </button>
+
+          @if (notifOpen()) {
+            <div class="notif-dropdown surface-card">
+              <div class="notif-header">
+                <strong>Notificações</strong>
+                @if (naoLidas() > 0) {
+                  <button type="button" class="link-btn" (click)="marcarTodas()">Marcar todas como lidas</button>
+                }
+              </div>
+              @if (notificacoes().length === 0) {
+                <p class="notif-empty">Nenhuma atualização nos eventos salvos até o momento.</p>
+              } @else {
+                @for (n of notificacoes(); track n.id) {
+                  <div class="notif-item" [class.unread]="!n.lida" (click)="marcarLida(n)">
+                    <a [routerLink]="['/eventos', n.eventoId]" (click)="notifOpen.set(false)">
+                      <strong>{{ n.eventoNome }}</strong>
+                      <p>{{ n.mensagem }}</p>
+                    </a>
+                  </div>
+                }
+              }
+            </div>
+          }
+        </div>
+      }
+    </nav>
+
+    <div class="nav-actions" [class.open]="menuOpen()">
+      @if (auth.isLoggedIn()) {
+        <div class="user-pill">
+          <span class="role-tag">{{ roleBadge() }}</span>
+          <span class="user-name">{{ auth.currentUser()?.nome }}</span>
+        </div>
+        <button type="button" class="btn btn-ghost btn-sm" (click)="logout()">Sair</button>
+      } @else {
+        <a routerLink="/login" class="btn btn-ghost btn-sm" (click)="menuOpen.set(false)">Entrar</a>
+        <a routerLink="/cadastro" class="btn btn-accent btn-sm" (click)="menuOpen.set(false)">Cadastrar</a>
+      }
+    </div>
+  </div>
+</header>

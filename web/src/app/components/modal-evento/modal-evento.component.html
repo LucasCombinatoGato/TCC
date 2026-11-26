@@ -1,0 +1,214 @@
+<div class="modal-backdrop" (click)="fechar.emit()">
+  <div class="modal-panel" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <div>
+        <span class="badge modal-tag">{{ eventoEditar ? 'Edição de Projeto' : 'Novo Projeto' }}</span>
+        <h2 class="font-display">
+          {{ eventoEditar ? 'Editar Evento / Ação Social' : 'Cadastrar Evento ou Ação Social' }}
+        </h2>
+      </div>
+      <button type="button" class="close-btn" (click)="fechar.emit()">&times;</button>
+    </div>
+
+    <form class="modal-body" (ngSubmit)="submit()">
+      <section class="form-section">
+        <h3>Informações Principais</h3>
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label>Nome do Evento / Ação *</label>
+            <input type="text" [(ngModel)]="nome" name="nome" required placeholder="Ex.: Festival Camaleão de Arte" />
+          </div>
+
+          <div class="form-group">
+            <label>Temática *</label>
+            <select [(ngModel)]="tematicaId" name="tematicaId" required>
+              @for (t of tematicas; track t.id) {
+                <option [ngValue]="t.id">{{ t.nome }}</option>
+              }
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Descrição completa</label>
+          <textarea [(ngModel)]="descricao" name="descricao" rows="3" placeholder="Conte os destaques, atrações, objetivos e orientações ao público..."></textarea>
+        </div>
+
+        <div class="form-grid-3">
+          <div class="form-group">
+            <label>Âmbito</label>
+            <select [(ngModel)]="tipoAmbito" name="tipoAmbito">
+              <option value="EVENTO">Evento Cultural / Comercial</option>
+              <option value="ACAO_SOCIAL">Ação Social / Comunitária</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Status de Publicação</label>
+            <select [(ngModel)]="status" name="status">
+              <option value="PUBLICADO">Publicado (visível na vitrine)</option>
+              <option value="RASCUNHO">Rascunho (privado)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Classificação Indicativa</label>
+            <select [(ngModel)]="classificacaoIndicativa" name="classificacaoIndicativa">
+              <option value="Livre">Livre</option>
+              <option value="10 anos">10 anos</option>
+              <option value="12 anos">12 anos</option>
+              <option value="14 anos">14 anos</option>
+              <option value="16 anos">16 anos</option>
+              <option value="18 anos">18 anos</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-grid-3">
+          <div class="form-group">
+            <label>Data e Hora de Início *</label>
+            <input type="datetime-local" [(ngModel)]="dataInicio" name="dataInicio" required />
+          </div>
+
+          <div class="form-group">
+            <label>Data e Hora de Término *</label>
+            <input type="datetime-local" [(ngModel)]="dataFim" name="dataFim" required />
+          </div>
+
+          <div class="form-group">
+            <label>URL da Imagem de Capa (opcional)</label>
+            <input type="url" [(ngModel)]="imagemCapaUrl" name="imagemCapaUrl" placeholder="https://..." />
+          </div>
+        </div>
+
+        <div class="parking-row">
+          <label class="checkbox-label">
+            <input type="checkbox" [(ngModel)]="estacionamento" name="estacionamento" />
+            Possui estacionamento no local
+          </label>
+          @if (estacionamento) {
+            <div class="form-group parking-price">
+              <label>Valor do estacionamento (R$)</label>
+              <input type="number" min="0" step="0.01" [(ngModel)]="valorEstacionamento" name="valorEstacionamento" />
+            </div>
+          }
+        </div>
+      </section>
+
+      <section class="form-section">
+        <h3>Localização do Evento</h3>
+        <div class="form-grid-3">
+          <div class="form-group">
+            <label>CEP</label>
+            <input type="text" [(ngModel)]="cep" name="cep" placeholder="01310-100" />
+          </div>
+          <div class="form-group">
+            <label>Tipo de Logradouro</label>
+            <input type="text" [(ngModel)]="tipoLogradouro" name="tipoLogradouro" placeholder="Rua / Avenida / Praça" />
+          </div>
+          <div class="form-group">
+            <label>Logradouro</label>
+            <input type="text" [(ngModel)]="logradouro" name="logradouro" placeholder="Ex.: Paulista" />
+          </div>
+        </div>
+
+        <div class="form-grid-3">
+          <div class="form-group">
+            <label>Número</label>
+            <input type="text" [(ngModel)]="numero" name="numero" placeholder="1578" />
+          </div>
+          <div class="form-group">
+            <label>Complemento</label>
+            <input type="text" [(ngModel)]="complemento" name="complemento" placeholder="Auditório / Parque" />
+          </div>
+          <div class="form-group">
+            <label>Bairro</label>
+            <input type="text" [(ngModel)]="bairro" name="bairro" placeholder="Bela Vista" />
+          </div>
+        </div>
+
+        <div class="form-grid-2">
+          <div class="form-group">
+            <label>Cidade</label>
+            <input type="text" [(ngModel)]="cidade" name="cidade" placeholder="São Paulo" />
+          </div>
+          <div class="form-group">
+            <label>UF</label>
+            <input type="text" maxlength="2" [(ngModel)]="uf" name="uf" placeholder="SP" />
+          </div>
+        </div>
+      </section>
+
+      <section class="form-section">
+        <div class="section-head">
+          <h3>Programação por Dia</h3>
+          <button type="button" class="btn btn-outline btn-sm" (click)="adicionarDia()">+ Adicionar Dia</button>
+        </div>
+
+        @for (dia of informacoesDias; track $index) {
+          <div class="sub-item">
+            <div class="form-grid-3">
+              <div class="form-group">
+                <label>Data</label>
+                <input type="date" [(ngModel)]="dia.data" [name]="'diaData' + $index" />
+              </div>
+              <div class="form-group">
+                <label>Hora Início</label>
+                <input type="time" [(ngModel)]="dia.horaInicio" [name]="'diaIni' + $index" />
+              </div>
+              <div class="form-group">
+                <label>Hora Término</label>
+                <input type="time" [(ngModel)]="dia.horaFinal" [name]="'diaFim' + $index" />
+              </div>
+            </div>
+            <button type="button" class="btn btn-danger btn-sm" (click)="removerDia($index)">Remover dia</button>
+          </div>
+        }
+      </section>
+
+      <section class="form-section">
+        <div class="section-head">
+          <h3>Ingressos / Cotas de Apoio (Links Externos)</h3>
+          <button type="button" class="btn btn-outline btn-sm" (click)="adicionarIngresso()">+ Adicionar Ingresso/Cota</button>
+        </div>
+
+        @for (ing of tiposIngresso; track $index) {
+          <div class="sub-item">
+            <div class="form-grid-3">
+              <div class="form-group">
+                <label>Nome da Modalidade *</label>
+                <input type="text" [(ngModel)]="ing.nome" [name]="'ingNome' + $index" placeholder="Pista / VIP / Voluntário" />
+              </div>
+              <div class="form-group">
+                <label>Valor (R$ — 0 para gratuito)</label>
+                <input type="number" min="0" step="0.01" [(ngModel)]="ing.valor" [name]="'ingValor' + $index" />
+              </div>
+              <div class="form-group">
+                <label>Quantidade Disponível</label>
+                <input type="number" min="0" [(ngModel)]="ing.quantidadeDisponivel" [name]="'ingQtd' + $index" />
+              </div>
+            </div>
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label>Benefícios / Requisitos</label>
+                <input type="text" [(ngModel)]="ing.beneficios" [name]="'ingBen' + $index" placeholder="Ex.: Certificado, acesso backstage..." />
+              </div>
+              <div class="form-group">
+                <label>Link Externo de Compra ou Inscrição</label>
+                <input type="url" [(ngModel)]="ing.linkCompra" [name]="'ingLink' + $index" placeholder="https://sympla.com.br/..." />
+              </div>
+            </div>
+            <button type="button" class="btn btn-danger btn-sm" (click)="removerIngresso($index)">Remover modalidade</button>
+          </div>
+        }
+      </section>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline" (click)="fechar.emit()">Cancelar</button>
+        <button type="submit" class="btn btn-primary" [disabled]="saving()">
+          {{ saving() ? 'Salvando...' : (eventoEditar ? 'Salvar Alterações' : 'Criar Projeto') }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

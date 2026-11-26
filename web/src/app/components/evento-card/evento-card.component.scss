@@ -1,0 +1,118 @@
+.evento-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+  }
+}
+
+.card-cover {
+  position: relative;
+  height: 168px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+}
+
+.cover-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.38;
+}
+
+.cover-badges, .recommended-badge {
+  position: relative;
+  z-index: 2;
+}
+
+.cover-badges {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.ambito-badge {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(6px);
+  color: #fff;
+}
+
+.recommended-badge {
+  align-self: flex-start;
+  background: #FFBE0B;
+  color: #1A1230;
+}
+
+.card-body {
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+}
+
+.card-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.date-pill {
+  color: var(--camora-secondary);
+}
+
+.price-pill {
+  color: var(--camora-accent-intense);
+  &.free {
+    color: #15803D;
+  }
+}
+
+.card-title {
+  font-size: 1.55rem;
+  color: var(--text-main);
+  a:hover {
+    color: var(--camora-primary);
+  }
+}
+
+.card-desc {
+  margin: 0;
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  flex: 1;
+}
+
+.card-info-row {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  padding-top: 8px;
+  border-top: 1px solid var(--border-color);
+}
+
+.org-chip {
+  font-weight: 600;
+  color: var(--camora-primary);
+}
+
+.card-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 6px;
+}

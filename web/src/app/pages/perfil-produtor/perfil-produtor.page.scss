@@ -1,0 +1,65 @@
+.profile-hero {
+  background: linear-gradient(135deg, var(--camora-primary), var(--camora-secondary));
+  color: #fff;
+  padding: 40px 0;
+  border-bottom: 4px solid var(--camora-accent);
+
+  h1 { font-size: 2.6rem; margin: 6px 0 4px; }
+  p { margin: 0; opacity: 0.88; }
+}
+
+.hero-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.identity-head {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.profile-logo {
+  width: 78px;
+  height: 78px;
+  border-radius: 18px;
+  object-fit: cover;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 4px;
+}
+
+.hero-tag {
+  background: var(--camora-accent);
+  color: #fff;
+}
+
+.profile-body {
+  margin-top: 28px;
+}
+
+.form-card, .info-box {
+  padding: 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  h2 {
+    font-size: 1.9rem;
+    color: var(--camora-primary);
+  }
+}
+
+.events-heading {
+  font-size: 2.1rem;
+  color: var(--camora-primary);
+  margin: 32px 0 18px;
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+  gap: 22px;
+}

@@ -1,0 +1,30 @@
+<article class="ong-card surface-card">
+  <div class="ong-banner" [style.background]="'linear-gradient(135deg,' + primaryColor + ',' + secondaryColor + ')'">
+    @if (ong.identidadeVisual?.logo) {
+      <img [src]="ong.identidadeVisual?.logo" [alt]="ong.nome" class="ong-logo" />
+    } @else {
+      <div class="ong-monogram" [style.background]="accentColor">{{ initials }}</div>
+    }
+    <span class="badge ong-badge">ONG Parceira</span>
+  </div>
+
+  <div class="ong-body">
+    <h3 class="font-display">{{ ong.nome }}</h3>
+    <p class="ong-desc">
+      {{ ong.descricao || 'Organização social engajada em ações comunitárias e divulgação de impacto positivo.' }}
+    </p>
+
+    <div class="ong-meta">
+      @if (ong.local?.cidade) {
+        <span>{{ ong.local?.cidade }}{{ ong.local?.uf ? ' / ' + ong.local?.uf : '' }}</span>
+      }
+      @if (ong.dadosContato?.redesSociais) {
+        <span>{{ ong.dadosContato?.redesSociais }}</span>
+      }
+    </div>
+
+    <button type="button" class="btn btn-primary btn-sm" [style.background]="primaryColor" (click)="selecionar.emit(ong)">
+      Ver ações e detalhes
+    </button>
+  </div>
+</article>

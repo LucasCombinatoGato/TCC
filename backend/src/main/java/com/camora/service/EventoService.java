@@ -11,6 +11,7 @@ import com.camora.exception.ResourceNotFoundException;
 import com.camora.model.*;
 import com.camora.repository.EventoRepository;
 import com.camora.repository.EventoSalvoRepository;
+import com.camora.repository.NotificacaoRepository;
 import jakarta.persistence.criteria.Join;
 import jakarta.persistence.criteria.JoinType;
 import jakarta.persistence.criteria.Predicate;
@@ -29,6 +30,7 @@ public class EventoService {
 
     private final EventoRepository eventoRepository;
     private final EventoSalvoRepository eventoSalvoRepository;
+    private final NotificacaoRepository notificacaoRepository;
     private final TematicaService tematicaService;
     private final ProdutorService produtorService;
     private final OngService ongService;
@@ -39,6 +41,7 @@ public class EventoService {
     public EventoService(
             EventoRepository eventoRepository,
             EventoSalvoRepository eventoSalvoRepository,
+            NotificacaoRepository notificacaoRepository,
             TematicaService tematicaService,
             ProdutorService produtorService,
             OngService ongService,
@@ -47,6 +50,7 @@ public class EventoService {
             MapperService mapper) {
         this.eventoRepository = eventoRepository;
         this.eventoSalvoRepository = eventoSalvoRepository;
+        this.notificacaoRepository = notificacaoRepository;
         this.tematicaService = tematicaService;
         this.produtorService = produtorService;
         this.ongService = ongService;
@@ -147,6 +151,15 @@ public class EventoService {
             );
         }
         return mapper.toEventoResponse(salvo, Set.of(), Set.of());
+    }
+
+    @Transactional
+    public void excluir(Long eventoId, UserPrincipal principal) {
+        Evento evento = buscarEntidade(eventoId);
+        validarPropriedade(evento, principal);
+        notificacaoRepository.deleteByEventoId(eventoId);
+        eventoSalvoRepository.deleteByEventoId(eventoId);
+        eventoRepository.delete(evento);
     }
 
     public List<EventoResponse> listarMeusEventos(UserPrincipal principal) {

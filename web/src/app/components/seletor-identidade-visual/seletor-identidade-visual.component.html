@@ -1,0 +1,108 @@
+<div class="identity-builder">
+  <div class="builder-controls">
+    <div class="mode-switch">
+      <button
+        type="button"
+        class="mode-card"
+        [class.active]="model.usarIdentidadePadrao"
+        (click)="onTogglePadrao(true)">
+        <strong>Padrão Camora</strong>
+        <span>Usa a paleta oficial Camaleão (#471CA8 / #884AB2 / #FF930A)</span>
+      </button>
+
+      <button
+        type="button"
+        class="mode-card"
+        [class.active]="!model.usarIdentidadePadrao"
+        (click)="onTogglePadrao(false)">
+        <strong>Personalizada (White-Label)</strong>
+        <span>Defina logotipo e cores exclusivas da sua marca ou ONG</span>
+      </button>
+    </div>
+
+    <div class="presets-row">
+      <span>Sugestões rápidas:</span>
+      @for (p of presets; track p.nome) {
+        <button type="button" class="preset-chip" (click)="aplicarPreset(p)">
+          <i [style.background]="p.principal"></i>
+          <i [style.background]="p.secundaria"></i>
+          <i [style.background]="p.destaque"></i>
+          {{ p.nome }}
+        </button>
+      }
+    </div>
+
+    <div class="form-group">
+      <label for="logoUrl">Logotipo (URL pública ou upload de imagem)</label>
+      <div class="logo-input-row">
+        <input
+          id="logoUrl"
+          type="text"
+          [(ngModel)]="model.logo"
+          (ngModelChange)="emitChange()"
+          placeholder="https://exemplo.com/logo.png" />
+        <label class="btn btn-outline btn-sm upload-label">
+          Enviar imagem
+          <input type="file" accept="image/*" (change)="onLogoUpload($event)" hidden />
+        </label>
+      </div>
+    </div>
+
+    <div class="form-grid-3" [class.disabled-colors]="model.usarIdentidadePadrao">
+      <div class="form-group">
+        <label>Cor Principal (70%)</label>
+        <div class="color-picker-row">
+          <input type="color" [(ngModel)]="model.corPrincipal" [disabled]="model.usarIdentidadePadrao" (ngModelChange)="emitChange()" />
+          <input type="text" [(ngModel)]="model.corPrincipal" [disabled]="model.usarIdentidadePadrao" (ngModelChange)="emitChange()" />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Cor Caráter / Secundária (20%)</label>
+        <div class="color-picker-row">
+          <input type="color" [(ngModel)]="model.corSecundaria" [disabled]="model.usarIdentidadePadrao" (ngModelChange)="emitChange()" />
+          <input type="text" [(ngModel)]="model.corSecundaria" [disabled]="model.usarIdentidadePadrao" (ngModelChange)="emitChange()" />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Cor de Destaque (10%)</label>
+        <div class="color-picker-row">
+          <input type="color" [(ngModel)]="model.corDestaque" [disabled]="model.usarIdentidadePadrao" (ngModelChange)="emitChange()" />
+          <input type="text" [(ngModel)]="model.corDestaque" [disabled]="model.usarIdentidadePadrao" (ngModelChange)="emitChange()" />
+        </div>
+      </div>
+    </div>
+
+    @if (showSaveButton) {
+      <div class="builder-actions">
+        <button type="button" class="btn btn-primary" [disabled]="saving" (click)="onSubmit()">
+          {{ saving ? 'Salvando...' : 'Salvar Identidade Visual' }}
+        </button>
+        <button type="button" class="btn btn-outline" [disabled]="saving" (click)="restaurarPadrao.emit()">
+          Restaurar Padrão Camora
+        </button>
+      </div>
+    }
+  </div>
+
+  <!-- Pré-visualização ao vivo -->
+  <div class="live-preview surface-card">
+    <div class="preview-header" [style.background]="'linear-gradient(135deg,' + model.corPrincipal + ',' + model.corSecundaria + ')'">
+      <div class="preview-brand">
+        <img [src]="model.logo || 'assets/camora-chameleon.svg'" alt="Preview Logo" />
+        <div>
+          <span class="preview-tag" [style.background]="model.corDestaque">Prévia White-Label</span>
+          <h4 class="font-display">{{ organizacaoNome }}</h4>
+        </div>
+      </div>
+    </div>
+    <div class="preview-body">
+      <p>Assim sua página pública e os detalhes dos seus eventos serão exibidos aos participantes na plataforma Camora.</p>
+      <div class="preview-cta-row">
+        <span class="preview-btn" [style.background]="model.corPrincipal">Explorar Programação</span>
+        <span class="preview-btn" [style.background]="model.corDestaque">Garantir Ingresso / Apoio</span>
+      </div>
+    </div>
+  </div>
+</div>

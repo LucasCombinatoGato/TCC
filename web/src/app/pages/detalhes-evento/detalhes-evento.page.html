@@ -1,0 +1,173 @@
+@if (loading()) {
+  <div class="loader-bar"><span class="spinner"></span> Carregando detalhes do evento...</div>
+} @else if (!evento()) {
+  <div class="container" style="padding:48px 0">
+    <div class="empty-state">
+      <h3>Evento não encontrado</h3>
+      <a routerLink="/eventos" class="btn btn-primary">Voltar para a vitrine</a>
+    </div>
+  </div>
+} @else {
+  @let ev = evento()!;
+  <section class="event-hero">
+    <div class="container hero-inner">
+      <div class="hero-badges">
+        @if (ev.tematica) {
+          <span class="badge" [style.background]="ev.tematica.corHex || '#FFBE0B'" style="color:#fff">
+            {{ ev.tematica.nome }}
+          </span>
+        }
+        <span class="badge tag-light">{{ ev.tipoAmbito === 'ACAO_SOCIAL' ? 'Ação Social' : 'Evento' }}</span>
+        @if (ev.classificacaoIndicativa) {
+          <span class="badge tag-light">Classificação: {{ ev.classificacaoIndicativa }}</span>
+        }
+        @if (ev.status !== 'PUBLICADO') {
+          <span class="badge" style="background:#B91C1C;color:#fff">{{ ev.status }}</span>
+        }
+      </div>
+
+      <h1 class="font-display">{{ ev.nome }}</h1>
+
+      <div class="hero-meta">
+        <span>Início: {{ ev.dataInicio | date: 'dd/MM/yyyy HH:mm' }}</span>
+        <span>Término: {{ ev.dataFim | date: 'dd/MM/yyyy HH:mm' }}</span>
+        @if (ev.organizadorNome) {
+          <span>
+            Organização:
+            @if (ev.organizadorTipo === 'PRODUTOR' && ev.organizadorId) {
+              <a [routerLink]="['/produtores', ev.organizadorId]" class="org-link">{{ ev.organizadorNome }}</a>
+            } @else {
+              <strong>{{ ev.organizadorNome }}</strong>
+            }
+          </span>
+        }
+      </div>
+
+      <div class="hero-actions">
+        @if (auth.userRole() === 'ROLE_USER') {
+          <button type="button" class="btn btn-accent" (click)="alternarSalvar()">
+            {{ ev.salvoPeloUsuario ? 'Salvo na minha lista' : 'Salvar evento' }}
+          </button>
+        }
+        <a routerLink="/eventos" class="btn btn-ghost">Voltar à vitrine</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="container details-grid">
+    <div class="details-main">
+      @if (ev.imagemCapaUrl) {
+        <img [src]="ev.imagemCapaUrl" [alt]="ev.nome" class="event-cover surface-card" />
+      }
+
+      <div class="surface-card block">
+        <h2 class="font-display">Sobre o Projeto</h2>
+        <p class="desc-text">{{ ev.descricao || 'Descrição detalhada não informada pelo organizador.' }}</p>
+      </div>
+
+      @if (ev.informacoesDias.length > 0) {
+        <div class="surface-card block">
+          <h2 class="font-display">Programação por Dia</h2>
+          <div class="dias-list">
+            @for (d of ev.informacoesDias; track $index) {
+              <div class="dia-row">
+                <strong>{{ d.data | date: 'dd/MM/yyyy' }}</strong>
+                <span>Início: {{ d.horaInicio }}</span>
+                @if (d.horaIntervalo) {
+                  <span>Intervalo: {{ d.horaIntervalo }}</span>
+                }
+                <span>Encerramento: {{ d.horaFinal }}</span>
+              </div>
+            }
+          </div>
+        </div>
+      }
+
+      <div class="surface-card block">
+        <h2 class="font-display">Ingressos, Cotas e Inscrições (Externo)</h2>
+        @if (ev.tiposIngresso.length === 0) {
+          <p class="muted">Entrada aberta ou modalidades ainda não cadastradas pelo organizador.</p>
+        } @else {
+          <div class="tickets-list">
+            @for (ing of ev.tiposIngresso; track $index) {
+              <div class="ticket-item">
+                <div>
+                  <h3>{{ ing.nome }}</h3>
+                  @if (ing.descricao) {
+                    <p>{{ ing.descricao }}</p>
+                  }
+                  @if (ing.beneficios) {
+                    <span class="ticket-benefits">Benefícios: {{ ing.beneficios }}</span>
+                  }
+                </div>
+                <div class="ticket-right">
+                  <strong class="ticket-price">
+                    {{ (ing.valor || 0) === 0 ? 'Gratuito' : ('R$ ' + ing.valor.toFixed(2).replace('.', ',')) }}
+                  </strong>
+                  @if (ing.linkCompra) {
+                    <a [href]="ing.linkCompra" target="_blank" rel="noopener noreferrer" class="btn btn-accent btn-sm">
+                      Acessar inscrição / compra
+                    </a>
+                  }
+                </div>
+              </div>
+            }
+          </div>
+        }
+      </div>
+    </div>
+
+    <aside class="details-side">
+      <div class="surface-card block">
+        <h2 class="font-display">Localização</h2>
+        @if (ev.local) {
+          <p class="loc-line">
+            {{ ev.local.tipoLogradouro }} {{ ev.local.logradouro }}, {{ ev.local.numero || 's/n' }}
+          </p>
+          @if (ev.local.complemento) {
+            <p class="loc-line">{{ ev.local.complemento }}</p>
+          }
+          <p class="loc-line">{{ ev.local.bairro }} — {{ ev.local.cidade }} / {{ ev.local.uf }}</p>
+          @if (ev.local.cep) {
+            <p class="loc-cep">CEP: {{ ev.local.cep }}</p>
+          }
+        } @else {
+          <p class="muted">Endereço não informado.</p>
+        }
+      </div>
+
+      <div class="surface-card block">
+        <h2 class="font-display">Estacionamento & Acesso</h2>
+        <p class="loc-line">
+          @if (ev.estacionamento) {
+            Disponível no local
+            ({{ (ev.valorEstacionamento || 0) === 0 ? 'Gratuito' : ('R$ ' + ev.valorEstacionamento.toFixed(2).replace('.', ',')) }})
+          } @else {
+            Não informado / Sem estacionamento próprio
+          }
+        </p>
+        <p class="loc-line">Classificação indicativa: <strong>{{ ev.classificacaoIndicativa || 'Livre' }}</strong></p>
+      </div>
+
+      @if (ev.organizadorContato) {
+        <div class="surface-card block">
+          <h2 class="font-display">Contato do Organizador</h2>
+          @if (ev.organizadorContato.email) {
+            <p class="loc-line">E-mail: {{ ev.organizadorContato.email }}</p>
+          }
+          @if (ev.organizadorContato.telefone) {
+            <p class="loc-line">Telefone: {{ ev.organizadorContato.telefone }}</p>
+          }
+          @if (ev.organizadorContato.redesSociais) {
+            <p class="loc-line">Redes: {{ ev.organizadorContato.redesSociais }}</p>
+          }
+          @if (ev.organizadorContato.site) {
+            <a [href]="ev.organizadorContato.site" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm">
+              Site oficial
+            </a>
+          }
+        </div>
+      }
+    </aside>
+  </section>
+}

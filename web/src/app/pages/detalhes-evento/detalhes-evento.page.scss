@@ -1,0 +1,151 @@
+.event-hero {
+  background: linear-gradient(135deg, var(--camora-primary) 0%, var(--camora-secondary) 100%);
+  color: #fff;
+  padding: 46px 0;
+  border-bottom: 5px solid var(--camora-accent);
+
+  h1 {
+    font-size: clamp(2.2rem, 4.5vw, 3.6rem);
+    margin: 14px 0 12px;
+  }
+}
+
+.hero-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tag-light {
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+
+.hero-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  font-size: 0.92rem;
+  opacity: 0.92;
+  margin-bottom: 20px;
+}
+
+.org-link {
+  text-decoration: underline;
+  font-weight: 700;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.details-grid {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: 24px;
+  margin-top: 32px;
+
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.details-main, .details-side {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.event-cover {
+  width: 100%;
+  max-height: 360px;
+  object-fit: cover;
+}
+
+.block {
+  padding: 24px;
+
+  h2 {
+    font-size: 1.7rem;
+    color: var(--camora-primary);
+    margin-bottom: 12px;
+  }
+}
+
+.desc-text {
+  margin: 0;
+  white-space: pre-line;
+  color: var(--text-main);
+}
+
+.dias-list, .tickets-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.dia-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  padding: 12px 14px;
+  background: #FAF8FE;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-color);
+  font-size: 0.9rem;
+}
+
+.ticket-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--border-color);
+  background: #FAF8FE;
+  flex-wrap: wrap;
+
+  h3 {
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 1.05rem;
+    margin: 0 0 4px;
+  }
+  p {
+    margin: 0 0 4px;
+    font-size: 0.86rem;
+    color: var(--text-muted);
+  }
+}
+
+.ticket-benefits {
+  font-size: 0.8rem;
+  color: var(--camora-primary);
+  font-weight: 600;
+}
+
+.ticket-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+}
+
+.ticket-price {
+  font-size: 1.15rem;
+  color: var(--camora-accent-intense);
+}
+
+.loc-line {
+  margin: 0 0 6px;
+  font-size: 0.92rem;
+}
+
+.loc-cep, .muted {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}

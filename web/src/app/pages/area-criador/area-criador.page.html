@@ -1,0 +1,111 @@
+<section class="creator-hero">
+  <div class="container hero-flex">
+    <div>
+      <span class="badge hero-tag">
+        {{ auth.userRole() === 'ROLE_ONG' ? 'Painel da ONG' : 'Painel do Produtor' }}
+      </span>
+      <h1 class="font-display">Área do Criador</h1>
+      <p>Gerencie eventos, ações sociais, status de publicação e identidade visual da sua organização.</p>
+    </div>
+
+    <div class="hero-buttons">
+      <button type="button" class="btn btn-accent" (click)="abrirNovo('EVENTO')">+ Novo Evento</button>
+      <button type="button" class="btn btn-magenta" (click)="abrirNovo('ACAO_SOCIAL')">+ Nova Ação Social</button>
+      @if (auth.userRole() === 'ROLE_ONG' && ongPerfil()) {
+        <button type="button" class="btn btn-ghost" (click)="modalOngAberto.set(true)">Editar ONG</button>
+      }
+      <a routerLink="/identidade-visual" class="btn btn-ghost">Personalizar White-Label</a>
+    </div>
+  </div>
+</section>
+
+<section class="container dashboard-body">
+  <div class="kpi-grid">
+    <div class="kpi-card surface-card">
+      <span>Total de Projetos</span>
+      <strong class="font-display">{{ eventos().length }}</strong>
+    </div>
+    <div class="kpi-card surface-card">
+      <span>Publicados</span>
+      <strong class="font-display" style="color:#15803D">{{ totalPublicados() }}</strong>
+    </div>
+    <div class="kpi-card surface-card">
+      <span>Rascunhos</span>
+      <strong class="font-display" style="color:#D97706">{{ totalRascunhos() }}</strong>
+    </div>
+    <div class="kpi-card surface-card">
+      <span>Cancelados</span>
+      <strong class="font-display" style="color:#B91C1C">{{ totalCancelados() }}</strong>
+    </div>
+  </div>
+
+  @if (loading()) {
+    <div class="loader-bar"><span class="spinner"></span> Carregando seus projetos...</div>
+  } @else if (eventos().length === 0) {
+    <div class="empty-state">
+      <h3>Você ainda não criou nenhum evento ou ação</h3>
+      <p>Clique em "+ Novo Evento" ou "+ Nova Ação Social" para publicar sua primeira iniciativa.</p>
+      <button type="button" class="btn btn-primary" (click)="abrirNovo(auth.userRole() === 'ROLE_ONG' ? 'ACAO_SOCIAL' : 'EVENTO')">
+        Criar primeiro projeto
+      </button>
+    </div>
+  } @else {
+    <div class="projects-list">
+      @for (ev of eventos(); track ev.id) {
+        <article class="project-row surface-card">
+          <div class="project-info">
+            <div class="badges-line">
+              <span class="badge status-badge" [class]="'status-' + ev.status.toLowerCase()">{{ ev.status }}</span>
+              <span class="badge type-badge">{{ ev.tipoAmbito === 'ACAO_SOCIAL' ? 'Ação Social' : 'Evento' }}</span>
+              @if (ev.tematica) {
+                <span class="badge" [style.background]="ev.tematica.corHex || '#8338EC'" style="color:#fff">
+                  {{ ev.tematica.nome }}
+                </span>
+              }
+            </div>
+
+            <h3 class="font-display">
+              <a [routerLink]="['/eventos', ev.id]">{{ ev.nome }}</a>
+            </h3>
+
+            <p class="project-meta">
+              {{ ev.dataInicio | date: 'dd/MM/yyyy HH:mm' }} &bull;
+              {{ ev.local?.cidade || 'Cidade não informada' }}{{ ev.local?.uf ? ' / ' + ev.local?.uf : '' }}
+            </p>
+          </div>
+
+          <div class="project-actions">
+            <button type="button" class="btn btn-outline btn-sm" (click)="abrirEdicao(ev)">Editar</button>
+            @if (ev.status !== 'PUBLICADO') {
+              <button type="button" class="btn btn-primary btn-sm" (click)="publicar(ev)">Publicar</button>
+            } @else {
+              <button type="button" class="btn btn-outline btn-sm" (click)="despublicar(ev)">Despublicar</button>
+            }
+            @if (ev.status !== 'CANCELADO') {
+              <button type="button" class="btn btn-danger btn-sm" (click)="cancelar(ev)">Cancelar</button>
+            }
+            <button type="button" class="btn btn-danger btn-sm" (click)="excluir(ev)">Excluir</button>
+          </div>
+        </article>
+      }
+    </div>
+  }
+</section>
+
+@if (modalEventoAberto()) {
+  <app-modal-evento
+    [eventoEditar]="eventoEmEdicao()"
+    [tematicas]="tematicas()"
+    [ambitoInicial]="ambitoModal()"
+    (fechar)="modalEventoAberto.set(false)"
+    (salvo)="aoSalvarEvento($event)"
+  ></app-modal-evento>
+}
+
+@if (modalOngAberto() && ongPerfil()) {
+  <app-modal-ong
+    [ong]="ongPerfil()!"
+    (fechar)="modalOngAberto.set(false)"
+    (salvo)="aoSalvarOng($event)"
+  ></app-modal-ong>
+}

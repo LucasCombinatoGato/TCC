@@ -1,0 +1,97 @@
+<section class="page-banner">
+  <div class="container">
+    <span class="badge banner-tag">Descoberta Camora</span>
+    <h1 class="font-display">Vitrine de Eventos e Ações Sociais</h1>
+    <p>Filtre por temática, cidade, data, modalidade ou entrada gratuita e encontre sua próxima experiência.</p>
+  </div>
+</section>
+
+<section class="container filters-wrapper">
+  <form class="filters-card surface-card" (ngSubmit)="buscar()">
+    <div class="form-grid-3">
+      <div class="form-group">
+        <label>Palavra-chave</label>
+        <input type="text" [(ngModel)]="q" name="q" placeholder="Nome, tema ou descrição..." />
+      </div>
+
+      <div class="form-group">
+        <label>Temática</label>
+        <select [(ngModel)]="tematicaId" name="tematicaId">
+          <option [ngValue]="null">Todas as temáticas</option>
+          @for (t of tematicas(); track t.id) {
+            <option [ngValue]="t.id">{{ t.nome }}</option>
+          }
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Âmbito</label>
+        <select [(ngModel)]="tipoAmbito" name="tipoAmbito">
+          <option value="">Todos (Eventos e Ações)</option>
+          <option value="EVENTO">Eventos</option>
+          <option value="ACAO_SOCIAL">Ações Sociais</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-grid-3">
+      <div class="form-group">
+        <label>Cidade</label>
+        <input type="text" [(ngModel)]="cidade" name="cidade" placeholder="Ex.: São Paulo" />
+      </div>
+
+      <div class="form-group">
+        <label>UF</label>
+        <input type="text" maxlength="2" [(ngModel)]="uf" name="uf" placeholder="SP" />
+      </div>
+
+      <div class="form-group">
+        <label>Entrada</label>
+        <select [(ngModel)]="gratuito" name="gratuito">
+          <option value="">Gratuitos e Pagos</option>
+          <option value="true">Somente Gratuitos</option>
+          <option value="false">Somente Pagos</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="filters-footer">
+      <div class="dates-inline">
+        <div class="form-group">
+          <label>De</label>
+          <input type="date" [(ngModel)]="dataInicio" name="dataInicio" />
+        </div>
+        <div class="form-group">
+          <label>Até</label>
+          <input type="date" [(ngModel)]="dataFim" name="dataFim" />
+        </div>
+      </div>
+
+      <div class="filter-buttons">
+        <button type="button" class="btn btn-outline btn-sm" (click)="limparFiltros()">Limpar</button>
+        <button type="submit" class="btn btn-primary btn-sm">Aplicar Filtros</button>
+      </div>
+    </div>
+  </form>
+
+  @if (loading()) {
+    <div class="loader-bar"><span class="spinner"></span> Buscando eventos...</div>
+  } @else if (eventos().length === 0) {
+    <div class="empty-state">
+      <h3>Nenhum resultado encontrado</h3>
+      <p>Tente ajustar os filtros ou explorar outras temáticas.</p>
+      <button type="button" class="btn btn-primary" (click)="limparFiltros()">Ver todos os eventos</button>
+    </div>
+  } @else {
+    <p class="result-count">{{ eventos().length }} evento(s) encontrado(s)</p>
+    <div class="cards-grid">
+      @for (ev of eventos(); track ev.id) {
+        <app-evento-card
+          [evento]="ev"
+          [showSaveButton]="auth.userRole() === 'ROLE_USER'"
+          (toggleSalvar)="alternarSalvar($event)"
+        ></app-evento-card>
+      }
+    </div>
+  }
+</section>

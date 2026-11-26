@@ -1,0 +1,296 @@
+:root {
+  /* Identidade Visual Padrão Camora (70% / 20% / 10%) */
+  --camora-primary: #471CA8;
+  --camora-primary-dark: #2F0F78;
+  --camora-secondary: #884AB2;
+  --camora-accent: #FF930A;
+  --camora-accent-intense: #F24B04;
+  --camora-magenta: #D1105A;
+
+  /* Paleta Secundária / Temáticas */
+  --theme-yellow: #FFBE0B;
+  --theme-orange: #FB5607;
+  --theme-pink: #FF006E;
+  --theme-purple: #8338EC;
+  --theme-blue: #3A86FF;
+
+  /* Neutros & Superfícies */
+  --bg-page: #F6F4FB;
+  --bg-surface: #FFFFFF;
+  --bg-subtle: #EFEAF9;
+  --text-main: #1A1230;
+  --text-muted: #5C5475;
+  --border-color: #E2D9F3;
+
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --shadow-sm: 0 4px 14px rgba(71, 28, 168, 0.08);
+  --shadow-md: 0 12px 32px rgba(71, 28, 168, 0.14);
+  --shadow-lg: 0 24px 48px rgba(47, 15, 120, 0.22);
+
+  --font-display: 'Bebas Neue', sans-serif;
+  --font-body: 'Inter', 'Roboto', system-ui, -apple-system, sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-body);
+  background-color: var(--bg-page);
+  color: var(--text-main);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, .font-display {
+  font-family: var(--font-display);
+  letter-spacing: 0.04em;
+  line-height: 1.08;
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button, input, select, textarea {
+  font-family: var(--font-body);
+}
+
+.container {
+  width: min(1240px, 92vw);
+  margin: 0 auto;
+}
+
+/* Botões Camora */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 11px 22px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.94rem;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease, border-color 0.18s ease;
+
+  &:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+    transform: none !important;
+  }
+
+  &:not(:disabled):hover {
+    transform: translateY(-2px);
+  }
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--camora-primary), var(--camora-secondary));
+  color: #FFFFFF;
+  box-shadow: 0 8px 20px rgba(71, 28, 168, 0.26);
+
+  &:not(:disabled):hover {
+    box-shadow: 0 12px 26px rgba(71, 28, 168, 0.35);
+  }
+}
+
+.btn-accent {
+  background: linear-gradient(135deg, var(--camora-accent), var(--camora-accent-intense));
+  color: #FFFFFF;
+  box-shadow: 0 8px 20px rgba(242, 75, 4, 0.26);
+}
+
+.btn-magenta {
+  background: var(--camora-magenta);
+  color: #FFFFFF;
+}
+
+.btn-outline {
+  background: transparent;
+  border-color: var(--camora-primary);
+  color: var(--camora-primary);
+
+  &:not(:disabled):hover {
+    background: var(--bg-subtle);
+  }
+}
+
+.btn-ghost {
+  background: rgba(255, 255, 255, 0.14);
+  color: #FFFFFF;
+  border-color: rgba(255, 255, 255, 0.28);
+
+  &:not(:disabled):hover {
+    background: rgba(255, 255, 255, 0.24);
+  }
+}
+
+.btn-danger {
+  background: #FEE2E2;
+  color: #B91C1C;
+  border-color: #FECACA;
+
+  &:not(:disabled):hover {
+    background: #FECACA;
+  }
+}
+
+.btn-sm {
+  padding: 7px 14px;
+  font-size: 0.84rem;
+}
+
+/* Badges */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+/* Cards & Superfícies */
+.surface-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Formulários */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-main);
+  }
+
+  input, select, textarea {
+    width: 100%;
+    padding: 11px 14px;
+    border: 1.5px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    background: #FFFFFF;
+    color: var(--text-main);
+    font-size: 0.94rem;
+    transition: border-color 0.16s ease, box-shadow 0.16s ease;
+
+    &:focus {
+      outline: none;
+      border-color: var(--camora-primary);
+      box-shadow: 0 0 0 3px rgba(71, 28, 168, 0.14);
+    }
+  }
+}
+
+.form-grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+
+  @media (max-width: 680px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.form-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+
+  @media (max-width: 780px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Modais */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(20, 8, 51, 0.65);
+  backdrop-filter: blur(5px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 1000;
+}
+
+.modal-panel {
+  background: var(--bg-surface);
+  border-radius: var(--radius-lg);
+  width: min(860px, 100%);
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--border-color);
+  animation: modalEnter 0.2s ease-out;
+}
+
+@keyframes modalEnter {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.empty-state {
+  text-align: center;
+  padding: 56px 24px;
+  background: var(--bg-surface);
+  border: 1.5px dashed var(--border-color);
+  border-radius: var(--radius-lg);
+  color: var(--text-muted);
+
+  h3 {
+    font-size: 1.8rem;
+    color: var(--camora-primary);
+    margin-bottom: 8px;
+  }
+}
+
+.loader-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 40px;
+  color: var(--camora-primary);
+  font-weight: 600;
+}
+
+.spinner {
+  width: 24px;
+  height: 24px;
+  border: 3px solid var(--bg-subtle);
+  border-top-color: var(--camora-accent);
+  border-radius: 50%;
+  animation: spin 0.75s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
